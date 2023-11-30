@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="8005" shutdown="SHUTDOWN">
+
+	<Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+	<Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+	<Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+	<Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+	<GlobalNamingResources>
+    	<Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  	</GlobalNamingResources>
+
+	<Service name="Catalina">
+	
+    	<Connector port="8080" protocol="HTTP/1.1" 
+			connectionTimeout="20000" 
+			redirectPort="8443" />
+
+	<Connector port="8443" protocol="HTTP/1.1"
+               maxThreads="250" SSLEnabled="true" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" sslEnabledProtocols="TLSv1.2,TLSv1.1" keystoreFile="tomcat.keystore" keystorePass="39851hH!" URIEncoding="UTF-8"/>
+
+		<Engine name="Catalina" defaultHost="localhost">
+
+			<Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+				resourceName="UserDatabase"/>
+
+			<Host name="localhost" appBase="webapps/localhost"
+				unpackWARs="true" autoDeploy="true"
+       			xmlValidation="false" xmlNamespaceAware="false">
+        	
+        		<Alias>recallchek.org</Alias>
+        		<Alias>recallchek.com</Alias>
+        		<Alias>www.recallchek.org</Alias>
+        		<Alias>www.recalltracker.net</Alias>
+        		<Alias>recalltracker.net</Alias>
+        		<Alias>test.priortylab.com</Alias>
+        		<Alias>test.inspectorlab.com</Alias>
+
+				<!--Valve className="net.rws.common.tomcat.ForceReplicationValve"/-->
+				<Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+				<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%t:%u %a : %r Service Time : %T"/>
+
+        		<Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"
+					driverName="org.postgresql.Driver"
+					connectionURL="jdbc:postgresql://qa.db.recallchek.com/recallsqa"
+                                        connectionName="postgres"
+                                        connectionPassword="JudpxEKqggKgcHnK"
+					userTable="users" userNameCol="USERNAME" userCredCol="PASSWORD"
+					userRoleTable="users" roleNameCol="ROLE"
+					resourceName="UserDatabase"/>
+
+			</Host>
+        
+			<Host name="test.residentialwarrantyservices.com" appBase="webapps/rws">
+                                unpackWARs="true" autoDeploy="true"
+                                xmlValidation="false" xmlNamespaceAware="false">
+				
+				<Alias>test.homewarrantycalifornia.com</Alias>
+				<Alias>test.rwscanada.com</Alias>
+				<Alias>test.rwshomeservicecontracts.com</Alias>
+				<Alias>test.rwsamerica.com</Alias>
+				<Alias>test.residentialwarrantyhomeprotection.com</Alias>
+	
+				<Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+
+                                <Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"
+                                        driverName="org.postgresql.Driver"
+                                        connectionURL="jdbc:postgresql://qa.db.recallchek.com/rwsqa"
+                                        connectionName="postgres"
+                                        connectionPassword="JudpxEKqggKgcHnK"
+                                        userTable="users" userNameCol="username" userCredCol="password"
+                                        userRoleTable="users" roleNameCol="role"
+                                        resourceName="UserDatabase"/>
+
+                        </Host>
+			<Host name="test.rwswarranty.com" appBase="webapps/rwswarranty">
+                                unpackWARs="true" autoDeploy="true"
+                                xmlValidation="false" xmlNamespaceAware="false">
+
+                                <Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+
+                                <Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"
+                                        driverName="org.postgresql.Driver"
+                                        connectionURL="jdbc:postgresql://qa.db.recallchek.com/rwsqa"
+                                        connectionName="postgres"
+                                        connectionPassword="JudpxEKqggKgcHnK"
+                                        userTable="users" userNameCol="username" userCredCol="password"
+                                        userRoleTable="users" roleNameCol="role"
+                                        resourceName="UserDatabase"/>
+
+                        </Host>
+			<Host name="test.homewarrantycalifornia.net" appBase="webapps/homewarrantycalifornia"
+                                unpackWARs="true" autoDeploy="true"
+                                xmlValidation="false" xmlNamespaceAware="false">
+
+                                <Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+
+                                <Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"
+                                        driverName="org.postgresql.Driver"
+                                        connectionURL="jdbc:postgresql://qa.db.recallchek.com/rwsqa"
+                                        connectionName="postgres"
+                                        connectionPassword="JudpxEKqggKgcHnK"
+                                        userTable="users" userNameCol="username" userCredCol="password"
+                                        userRoleTable="users" roleNameCol="role"
+                                        resourceName="UserDatabase"/>
+
+                        </Host>
+			<Host name="test.nxtinspekt.com" appBase="webapps/nxtinspekt"
+                                unpackWARs="true" autoDeploy="true"
+                                xmlValidation="false" xmlNamespaceAware="false">
+
+				<Alias>api.nxtinspekt.com</Alias>
+
+                        </Host>
+			<Host name="test.nxtstructural.com" appBase="webapps/nxtstructural"
+                                unpackWARs="true" autoDeploy="true"
+                                xmlValidation="false" xmlNamespaceAware="false">
+				
+				<Alias>test.nxtwarranty.com</Alias>
+
+                                <Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+
+                                <Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"
+                                        driverName="org.postgresql.Driver"
+                                        connectionURL="jdbc:postgresql://qa.db.recallchek.com/rwsqa"
+                                        connectionName="postgres"
+                                        connectionPassword="JudpxEKqggKgcHnK"
+                                        userTable="users" userNameCol="username" userCredCol="password"
+                                        userRoleTable="users" roleNameCol="role"
+                                        resourceName="UserDatabase"/>
+
+                        </Host>
+
+			<Host name="sellers.nxtstructural.com" appBase="webapps/nxtstructuralsellers"
+                                unpackWARs="true" autoDeploy="true"
+                                xmlValidation="false" xmlNamespaceAware="false">
+
+                                <Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+
+                        </Host>
+
+			<Host name="directprotect.alarminspection.com" appBase="webapps/directprotect"
+                                unpackWARs="true" autoDeploy="true"
+                                xmlValidation="false" xmlNamespaceAware="false">
+
+                                <Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+
+                        </Host>
+
+			<Host name="api.bamdashboard.com" appBase="webapps/bamapi"
+                                unpackWARs="true" autoDeploy="true"
+                                xmlValidation="false" xmlNamespaceAware="false">
+
+                                <Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
+
+                        </Host>
+
+			
+
+		</Engine>
+	</Service>
+</Server>
